@@ -2,6 +2,7 @@ package com.andyron.system.controller;
 
 import com.andyron.common.result.Result;
 import com.andyron.model.system.SysRole;
+import com.andyron.model.vo.AssginRoleVo;
 import com.andyron.model.vo.SysRoleQueryVo;
 import com.andyron.system.exception.ARException;
 import com.andyron.system.service.SysRoleService;
@@ -14,11 +15,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author andyron
  **/
-@Api("角色管理")
+@Api(tags = "角色管理")
 @RestController
 @RequestMapping("/admin/system/sysRole")
 public class SysRoleController {
@@ -91,6 +93,20 @@ public class SysRoleController {
     @DeleteMapping("batchRemove")
     public Result batchRemove(@RequestBody List<Long> ids) {
         sysRoleService.removeByIds(ids);
+        return Result.ok();
+    }
+
+    @ApiOperation("根据用户获取角色数据")
+    @GetMapping("/toAssign/{userId}")
+    public Result toAssign(@PathVariable Long userId) {
+        Map<String, Object> roleMap = sysRoleService.getRolesByUserId(userId);
+        return Result.ok(roleMap);
+    }
+
+    @ApiOperation("根据用户分配角色")
+    @PostMapping("/doAssign")
+    public Result doAssign(@RequestBody AssginRoleVo assginRoleVo) {
+        sysRoleService.doAssign(assginRoleVo);
         return Result.ok();
     }
 }
