@@ -52,10 +52,15 @@ public class SysMenu extends BaseEntity {
 	@TableField("status")
 	private Integer status;
 
-	// 下级列表
+	/**
+	 * 下级列表
+	 * exist = false  表示这个字段不在表中，如果是true就表示这字段一定是表里的
+	 */
 	@TableField(exist = false)
 	private List<SysMenu> children;
-	//是否选中
+	/**
+	 * 是否选中
+	 */
 	@TableField(exist = false)
 	private boolean isSelect;
 }

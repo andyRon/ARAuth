@@ -59,7 +59,8 @@ export default {
   name: 'Login',
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
+      // if (!validUsername(value)) {
+      if (value.length < 5) { // 🔖简单修改一下校验规则  
         callback(new Error('Please enter the correct user name'))
       } else {
         callback()

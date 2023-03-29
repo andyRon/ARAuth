@@ -1,6 +1,7 @@
 package com.andyron.system.controller;
 
 import com.andyron.common.result.Result;
+import com.andyron.common.utils.MD5;
 import com.andyron.model.system.SysUser;
 import com.andyron.model.vo.AssginRoleVo;
 import com.andyron.model.vo.SysUserQueryVo;
@@ -36,8 +37,13 @@ public class SysUserController {
     @ApiOperation("保存用户")
     @PostMapping("/save")
     public Result save(@RequestBody SysUser user) {
-        sysUserService.save(user);
-        return Result.ok();
+        user.setPassword(MD5.encrypt(user.getPassword()));
+        boolean is_Success = sysUserService.save(user);
+        if (is_Success) {
+            return Result.ok();
+        } else {
+            return Result.fail();
+        }
     }
 
     @ApiOperation("更新用户")

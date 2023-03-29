@@ -18,4 +18,7 @@ public interface SysUserService extends IService<SysUser> {
     void updateStatus(Long id, int status);
 
 
+    SysUser getUserInfoByUserName(String username);
+
+    Map<String, Object> getUserInfo(String username);
 }

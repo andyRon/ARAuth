@@ -6,7 +6,10 @@ const getDefaultState = () => {
   return {
     token: getToken(),
     name: '',
-    avatar: ''
+    avatar: '',
+
+    buttons: [],
+    menus: ''
   }
 }
 
@@ -24,6 +27,13 @@ const mutations = {
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
+  },
+
+  SET_BUTTONS: (state, buttons) => {
+    state.buttons = buttons
+  },
+  SET_MENUS: (state, menus) => {
+    state.menus = menus
   }
 }
 
@@ -57,6 +67,11 @@ const actions = {
 
         commit('SET_NAME', name)
         commit('SET_AVATAR', avatar)
+        
+        // routers和buttons是后端接口返回中的名字
+        commit("SET_BUTTONS", data.buttons)
+        commit("SET_MENUS", data.routers)
+
         resolve(data)
       }).catch(error => {
         reject(error)
