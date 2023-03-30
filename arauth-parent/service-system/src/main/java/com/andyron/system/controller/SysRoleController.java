@@ -4,6 +4,8 @@ import com.andyron.common.result.Result;
 import com.andyron.model.system.SysRole;
 import com.andyron.model.vo.AssginRoleVo;
 import com.andyron.model.vo.SysRoleQueryVo;
+import com.andyron.system.annotation.Log;
+import com.andyron.system.enums.BusinessType;
 import com.andyron.system.exception.ARException;
 import com.andyron.system.service.SysRoleService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -12,6 +14,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,6 +48,8 @@ public class SysRoleController {
     /**
      * @RequestBody 不能使用get提交方式，传递json格式数据，把json格式数据封装到对象里面{...}
      */
+    @Log(title = "角色管理", businessType = BusinessType.INSERT)
+    @PreAuthorize("hasAuthority('bnt.sysRole.add')")
     @ApiOperation(value = "新增角色")
     @PostMapping("/save")
     public Result save(@RequestBody SysRole role) {

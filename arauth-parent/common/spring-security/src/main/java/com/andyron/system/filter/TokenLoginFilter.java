@@ -2,10 +2,12 @@ package com.andyron.system.filter;
 
 import com.andyron.common.result.Result;
 import com.andyron.common.result.ResultCodeEnum;
+import com.andyron.common.utils.IpUtil;
 import com.andyron.common.utils.JwtHelper;
 import com.andyron.common.utils.ResponseUtil;
 import com.andyron.model.vo.LoginVo;
 import com.andyron.system.custom.CustomUser;
+import com.andyron.system.service.LoginLogService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,11 +29,16 @@ import java.util.Map;
  **/
 public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
 
-    public TokenLoginFilter(AuthenticationManager authenticationManager) {
+    private LoginLogService loginLogService;
+
+    public TokenLoginFilter(AuthenticationManager authenticationManager,
+                            LoginLogService loginLogService) {
         this.setAuthenticationManager(authenticationManager);
         this.setPostOnly(false);
         //
         this.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/admin/system/index/login", "POST"));
+
+        this.loginLogService = loginLogService;
     }
     /**
      * 获取用户名和密码，认证
@@ -59,6 +66,10 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
         CustomUser customUser = (CustomUser) authResult.getPrincipal();
         // 生成token
         String token = JwtHelper.createToken(customUser.getSysUser().getId(), customUser.getSysUser().getUsername());
+
+        // 记录登录日志
+        loginLogService.recordLoginLog(customUser.getUsername(), 1, IpUtil.getIpAddress(request), "登录成功");
+
         // 返回
         Map<String, Object> map = new HashMap<>();
         map.put("token", token);
@@ -72,6 +83,9 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
         if(e.getCause() instanceof RuntimeException) {
             ResponseUtil.out(response, Result.build(null, 204, e.getMessage()));
         } else {
+            // 记录登录日志 🔖
+            loginLogService.recordLoginLog("测试", 0, IpUtil.getIpAddress(request), "登录失败");
+
             ResponseUtil.out(response, Result.build(null, ResultCodeEnum.LOGIN_MOBLE_ERROR));
         }
     }
