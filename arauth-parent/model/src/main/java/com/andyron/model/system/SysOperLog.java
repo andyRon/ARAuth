@@ -9,7 +9,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-@ApiModel(description = "SysOperLog")
+@ApiModel(description = "操作日志记录")
 @TableName("sys_oper_log")
 public class SysOperLog extends BaseEntity {
 

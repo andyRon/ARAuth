@@ -1,5 +1,6 @@
 package com.andyron.common.result;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -8,18 +9,17 @@ import lombok.Data;
  **/
 @Data
 public class Result<T> {
-    //返回码
+    @ApiModelProperty(value = "返回码")
     private Integer code;
 
-    //返回消息
+    @ApiModelProperty(value = "返回信息")
     private String message;
 
-    //返回数据
+    @ApiModelProperty(value = "返回数据")
     private T data;
 
     public Result(){}
 
-    // 返回数据
     protected static <T> Result<T> build(T data) {
         Result<T> result = new Result<T>();
         if (data != null) {

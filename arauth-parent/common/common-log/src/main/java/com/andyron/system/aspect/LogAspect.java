@@ -83,8 +83,8 @@ public class LogAspect {
             operLogService.saveSysLog(operLog);
         } catch (Exception exp) {
             // 记录本地异常日志
-            log.error("==前置通知异常==");
-            log.error("异常信息:{}", exp.getMessage());
+//            log.error("==前置通知异常==");
+//            log.error("异常信息:{}", exp.getMessage());
             exp.printStackTrace();
         }
     }

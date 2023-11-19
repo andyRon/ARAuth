@@ -1,5 +1,6 @@
 package com.andyron.system.filter;
 
+import com.alibaba.fastjson.JSON;
 import com.andyron.common.result.Result;
 import com.andyron.common.result.ResultCodeEnum;
 import com.andyron.common.utils.IpUtil;
@@ -9,6 +10,7 @@ import com.andyron.model.vo.LoginVo;
 import com.andyron.system.custom.CustomUser;
 import com.andyron.system.service.LoginLogService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -32,13 +34,17 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
 
     private LoginLogService loginLogService;
 
+    private RedisTemplate redisTemplate;
+
     public TokenLoginFilter(AuthenticationManager authenticationManager,
+                            RedisTemplate redisTemplate,
                             LoginLogService loginLogService) {
         this.setAuthenticationManager(authenticationManager);
         this.setPostOnly(false);
         // 指定默认的登录结构和方式
         this.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/admin/system/index/login", "POST"));
 
+        this.redisTemplate = redisTemplate;
         this.loginLogService = loginLogService;
     }
     /**
@@ -65,6 +71,10 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
                                             Authentication authResult) throws IOException, ServletException {
         // 获取认证对象
         CustomUser customUser = (CustomUser) authResult.getPrincipal();
+
+        // 保持权限数据
+        redisTemplate.opsForValue().set(customUser.getUsername(), JSON.toJSONString(customUser.getAuthorities()));
+
         // 生成token
         String token = JwtHelper.createToken(customUser.getSysUser().getId(), customUser.getSysUser().getUsername());
 

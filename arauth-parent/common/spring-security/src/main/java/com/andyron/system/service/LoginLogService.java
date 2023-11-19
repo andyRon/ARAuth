@@ -20,4 +20,6 @@ public interface LoginLogService {
     void recordLoginLog(String username, Integer status, String ipaddr, String message);
 
     IPage<SysLoginLog> selectPage(Long page, Long limit, SysLoginLogQueryVo sysLoginLogQueryVo);
+
+    SysLoginLog getById(Long id);
 }

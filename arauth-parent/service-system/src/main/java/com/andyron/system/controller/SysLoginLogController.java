@@ -36,4 +36,11 @@ public class SysLoginLogController {
         IPage<SysLoginLog> pageModel = loginLogService.selectPage(page, limit, sysLoginLogQueryVo);
         return Result.ok(pageModel);
     }
+
+    @ApiOperation(value = "获取")
+    @GetMapping("get/{id}")
+    public Result get(@PathVariable Long id) {
+        SysLoginLog loginLog = loginLogService.getById(id);
+        return Result.ok(loginLog);
+    }
 }

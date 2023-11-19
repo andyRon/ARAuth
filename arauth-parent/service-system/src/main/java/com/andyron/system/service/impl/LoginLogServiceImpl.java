@@ -27,6 +27,7 @@ public class LoginLogServiceImpl implements LoginLogService {
         loginLog.setIpaddr(ipaddr);
         loginLog.setMsg(message);
         loginLogMapper.insert(loginLog);
+
     }
 
     @Override
@@ -37,7 +38,7 @@ public class LoginLogServiceImpl implements LoginLogService {
         String createTimeEnd = sysLoginLogQueryVo.getCreateTimeEnd();
         QueryWrapper<SysLoginLog> wrapper = new QueryWrapper<>();
         if (!StringUtils.isEmpty(username)) {
-            wrapper.like("title", username);
+            wrapper.like("username", username);
         }
         if (!StringUtils.isEmpty(createTimeBegin)) {
             wrapper.ge("create_time", createTimeBegin);
@@ -46,5 +47,10 @@ public class LoginLogServiceImpl implements LoginLogService {
             wrapper.le("create_time", createTimeEnd);
         }
         return loginLogMapper.selectPage(pageParam, wrapper);
+    }
+
+    @Override
+    public SysLoginLog getById(Long id) {
+        return loginLogMapper.selectById(id);
     }
 }
