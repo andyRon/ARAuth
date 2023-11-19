@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * @author andyron
  **/
 @Component
-public class CustomMd5Password implements PasswordEncoder {
+public class CustomMd5PasswordEncoder implements PasswordEncoder {
     @Override
     public String encode(CharSequence rawPassword) {
         return MD5.encrypt(rawPassword.toString());

@@ -11,10 +11,13 @@ import java.util.Collection;
  * @author andyron
  **/
 public class CustomUser extends User {
+    /**
+     * 自己的用户实体对象
+     */
     private SysUser sysUser;
 
     public CustomUser(SysUser sysUser, Collection<? extends GrantedAuthority> authorities) {
-        super(sysUser.getUsername(), sysUser.getUsername(), authorities);
+        super(sysUser.getUsername(), sysUser.getPassword(), authorities);
         this.sysUser = sysUser;
     }
 

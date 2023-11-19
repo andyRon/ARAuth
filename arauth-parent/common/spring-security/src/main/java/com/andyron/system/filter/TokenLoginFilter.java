@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 自定义用户认证过滤器
  * @author andyron
  **/
 public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
@@ -35,7 +36,7 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
                             LoginLogService loginLogService) {
         this.setAuthenticationManager(authenticationManager);
         this.setPostOnly(false);
-        //
+        // 指定默认的登录结构和方式
         this.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/admin/system/index/login", "POST"));
 
         this.loginLogService = loginLogService;
@@ -73,7 +74,7 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
         // 返回
         Map<String, Object> map = new HashMap<>();
         map.put("token", token);
-        ResponseUtil.out(response, Result.ok(map));  // 🔖写法奇怪需要改造
+        ResponseUtil.out(response, Result.ok(map));
     }
     /**
      * 认证失败调用
@@ -83,7 +84,7 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
         if(e.getCause() instanceof RuntimeException) {
             ResponseUtil.out(response, Result.build(null, 204, e.getMessage()));
         } else {
-            // 记录登录日志 🔖
+            // TODO 记录登录日志
             loginLogService.recordLoginLog("测试", 0, IpUtil.getIpAddress(request), "登录失败");
 
             ResponseUtil.out(response, Result.build(null, ResultCodeEnum.LOGIN_MOBLE_ERROR));

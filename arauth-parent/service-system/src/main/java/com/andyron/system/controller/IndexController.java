@@ -31,7 +31,7 @@ public class IndexController {
      * @return
      */
     @ApiOperation("登录")
-    @PostMapping("login")
+    @PostMapping("/login")
     public Result login(@RequestBody LoginVo loginVo) {
         // 根据username查询数据
         SysUser sysUser = sysUserService.getUserInfoByUserName(loginVo.getUsername());

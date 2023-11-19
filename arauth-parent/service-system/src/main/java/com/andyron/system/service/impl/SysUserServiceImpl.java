@@ -56,16 +56,18 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public Map<String, Object> getUserInfo(String username) {
-        Map<String, Object> res = new HashMap<>();
         SysUser sysUser = getUserInfoByUserName(username);
         List<RouterVo> routerVoList = sysMenuService.findUserMenuList(sysUser.getId());
         List<String> permsList = sysMenuService.findUserPermsList(sysUser.getId());
+
+        Map<String, Object> res = new HashMap<>();
         res.put("name", sysUser.getName());
-//        res.put("avatar", sysUser.getHeadUrl());
-        // 🔖
+        // TODO
         res.put("avatar", "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
         res.put("roles", new HashSet<>());
+        // 按钮权限数据
         res.put("buttons", permsList);
+        // 菜单权限数据
         res.put("routers", routerVoList);
         return res;
     }

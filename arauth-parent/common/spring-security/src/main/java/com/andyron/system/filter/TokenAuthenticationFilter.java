@@ -18,6 +18,7 @@ import java.util.Collections;
 
 /**
  * 认证解析token过滤器
+ * OncePerRequestFilter 可以理解为每次请求前过滤器
  * @author andyron
  **/
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
@@ -42,6 +43,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
+        // 从Header中获取token
         String token = request.getHeader("token");
         logger.info("token:" + token);
         if (!StringUtils.isEmpty(token)) {

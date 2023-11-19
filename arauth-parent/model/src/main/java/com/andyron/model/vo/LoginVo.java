@@ -7,7 +7,7 @@ package com.andyron.model.vo;
 public class LoginVo {
 
     /**
-     * 手机号
+     * 用户名
      */
     private String username;
 

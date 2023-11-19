@@ -1,7 +1,11 @@
 package com.andyron.common.utils;
 
+import com.alibaba.fastjson.JSONException;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Map;
+import java.util.NoSuchElementException;
 
 
 public final class MD5 {
@@ -28,6 +32,5 @@ public final class MD5 {
             throw new RuntimeException("MD5加密出错！！+" + e);
         }
     }
-
 
 }

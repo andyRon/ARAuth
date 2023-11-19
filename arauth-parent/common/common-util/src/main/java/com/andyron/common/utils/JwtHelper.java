@@ -19,7 +19,6 @@ public class JwtHelper {
      */
     private static String tokenSignKey = "123456";
 
-
     public static String createToken(Long userId, String username) {
         String token = Jwts.builder()
                 .setSubject("AUTH-USER")
@@ -67,8 +66,12 @@ public class JwtHelper {
         //jwttoken无需删除，客户端扔掉即可。
     }
 
+    // TODO
     public static void main(String[] args) {
         String token = createToken(1L, "admin");
         System.out.println(token);
+
+        System.out.println(JwtHelper.getUserId(token));
+        System.out.println(JwtHelper.getUsername(token));
     }
 }

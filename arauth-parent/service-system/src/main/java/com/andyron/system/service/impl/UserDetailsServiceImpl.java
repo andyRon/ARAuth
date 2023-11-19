@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.Collections;
 
 /**
+ * spring security中根据用户名称查询用户信息
  * @author andyron
  **/
 @Component
@@ -28,6 +29,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (sysUser.getStatus().intValue() == 0) {
             throw new RuntimeException("用户被禁用了");
         }
+        // TODO
         return new CustomUser(sysUser, Collections.emptyList());
     }
 }
