@@ -1,6 +1,5 @@
 <template>
   <div class="app-container">
-    角色列表
     <!--查询表单-->
     <div class="search-div">
       <el-form label-width="70px" size="small">
