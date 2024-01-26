@@ -34,5 +34,4 @@ public class SysLoginLog extends BaseEntity {
 	@ApiModelProperty(value = "访问时间")
 	@TableField("access_time")
 	private Date accessTime;
-
 }

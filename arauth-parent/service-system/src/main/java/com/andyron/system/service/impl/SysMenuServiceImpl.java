@@ -26,7 +26,7 @@ import java.util.List;
  * @author andyron
  **/
 @Service
-@Transactional // 🔖
+@Transactional // TODO
 public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> implements SysMenuService {
 
     @Autowired

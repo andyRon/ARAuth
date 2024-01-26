@@ -1,5 +1,6 @@
 package com.andyron.common.result;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -7,6 +8,7 @@ import lombok.Data;
  * 全局统一返回结果类
  * @author andyron
  **/
+@ApiModel(description = "全局统一返回结果类")
 @Data
 public class Result<T> {
     @ApiModelProperty(value = "返回码")

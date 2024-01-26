@@ -7,10 +7,10 @@ import java.util.List;
 /**
  * 路由配置信息
  *
+ * @author andyron
  */
 @Data
-public class RouterVo
-{
+public class RouterVo {
     /**
      * 路由名字
      */
@@ -45,6 +45,4 @@ public class RouterVo
      * 子路由
      */
     private List<RouterVo> children;
-
-
 }

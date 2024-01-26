@@ -97,7 +97,7 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
             // TODO 记录登录日志
             loginLogService.recordLoginLog("测试", 0, IpUtil.getIpAddress(request), "登录失败");
 
-            ResponseUtil.out(response, Result.build(null, ResultCodeEnum.LOGIN_MOBLE_ERROR));
+            ResponseUtil.out(response, Result.build(null, ResultCodeEnum.LOGIN_MOBILE_ERROR));
         }
     }
 }

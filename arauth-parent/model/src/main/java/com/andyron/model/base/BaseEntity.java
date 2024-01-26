@@ -31,6 +31,7 @@ public class BaseEntity implements Serializable {
     @TableField("is_deleted")
     private Integer isDeleted;
 
+    @ApiModelProperty(value = "更多参数")
     @TableField(exist = false)
     private Map<String,Object> param = new HashMap<>();
 }

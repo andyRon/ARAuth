@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
  * @author andyron
  **/
 @Repository
-@Mapper  // 🔖
+@Mapper  // TODO
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
     IPage<SysUser> selectPage(Page<SysUser> page, @Param("vo") SysUserQueryVo userQueryVo);

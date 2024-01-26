@@ -3,6 +3,10 @@ package com.andyron.model.vo;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+/**
+ *
+ * @author andyron
+ */
 @Data
 public class SysOperLogQueryVo {
 	@ApiModelProperty(value = "模块名称")
@@ -16,6 +20,5 @@ public class SysOperLogQueryVo {
 
 	@ApiModelProperty(value = "结束时间")
 	private String createTimeEnd;
-
 }
 

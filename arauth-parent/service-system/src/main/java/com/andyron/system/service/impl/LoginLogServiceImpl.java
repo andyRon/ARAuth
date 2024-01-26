@@ -27,7 +27,6 @@ public class LoginLogServiceImpl implements LoginLogService {
         loginLog.setIpaddr(ipaddr);
         loginLog.setMsg(message);
         loginLogMapper.insert(loginLog);
-
     }
 
     @Override
@@ -46,6 +45,7 @@ public class LoginLogServiceImpl implements LoginLogService {
         if (!StringUtils.isEmpty(createTimeEnd)) {
             wrapper.le("create_time", createTimeEnd);
         }
+        wrapper.orderByDesc("create_time");
         return loginLogMapper.selectPage(pageParam, wrapper);
     }
 

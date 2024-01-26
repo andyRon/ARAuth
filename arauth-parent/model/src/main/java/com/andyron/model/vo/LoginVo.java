@@ -3,6 +3,7 @@ package com.andyron.model.vo;
 
 /**
  * 登录对象
+ * @author andyron
  */
 public class LoginVo {
 
